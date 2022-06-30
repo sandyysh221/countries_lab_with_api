@@ -19,10 +19,21 @@ function TheWorld() {
     setCountries(countries);
   };
 
+  function getCountriesByCode(code) {
+    const country = countries.find((country) => {
+      return country.cca3 === code;
+    });
+    console.log(country);
+    return country;
+  }
+
   function createFavourites(country) {
     const copyFavs = [...favouriteCountry];
     copyFavs.push(country);
-    setFavouriteCountry(copyFavs);
+    const filteredCountries = copyFavs.filter((country, index, array) => {
+      return array.indexOf(country) === index;
+    });
+    setFavouriteCountry(filteredCountries);
   }
 
   function getTotalPopulation(countries) {
@@ -46,6 +57,7 @@ function TheWorld() {
       <CountryInformation
         country={selectedCountry}
         createFavourites={createFavourites}
+        getCountriesByCode={getCountriesByCode}
       />
       <FavourtieCountries countries={favouriteCountry} />
     </>
